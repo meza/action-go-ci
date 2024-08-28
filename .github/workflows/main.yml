@@ -1,0 +1,42 @@
+name: 'Common golang ci'
+inputs:
+  go-version:
+    description: "The version of node to use"
+    required: false
+    type: string
+    default: "latest"
+outputs:
+  new-release-published:
+    description: "If a new release was published"
+    value: ${{ steps.get-next-version.outputs.new-release-published }}
+  new-release-version:
+    description: "The version of the new release"
+    value: ${{ steps.get-next-version.outputs.new-release-version }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: meza/action-go-setup@main
+      name: 🔧 Set up Node.js
+      shell: bash
+      with:
+        node-version: 'latest'
+    - name: 🔍 Test with the Go CLI
+      shell: bash
+      run: go test -json ./... | go-ctrf-json-reporter -output ctrf-report.json
+
+    - name: 📝 Publish CTRF Test Summary Results
+      shell: bash
+      run: npx github-actions-ctrf ctrf-report.json
+      if: always()
+
+    - name: ❌ Publish CTRF Failed Test Summary Results
+      shell: bash
+      run: npx github-actions-ctrf failed ctrf-report.json
+      if: always()
+    - run: npx semantic-release --dry-run
+      shell: bash
+      name: 🧮 Get next version number
+      id: get-next-version
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
