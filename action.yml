@@ -23,14 +23,9 @@ runs:
       name: 🔧 Set up Node.js
       with:
         go-version: ${{ inputs.go-version }}
-    - name: 🔍 Test with the Go CLI
-      shell: bash
-      run: go test -json ./... | go-ctrf-json-reporter -output ctrf-report.json
 
-    - name: 📝 Publish CTRF Test Summary Results
-      shell: bash
-      run: npx github-actions-ctrf ctrf-report.json
-      if: always()
+    - name: 🔍 Test with the Go CLI
+      uses: meza/ation-go-test@main
 
     - run: npx semantic-release --dry-run
       shell: bash
