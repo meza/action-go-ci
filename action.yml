@@ -21,7 +21,6 @@ runs:
   steps:
     - uses: meza/action-go-setup@main
       name: 🔧 Set up Node.js
-      shell: bash
       with:
         node-version: 'latest'
     - name: 🔍 Test with the Go CLI
