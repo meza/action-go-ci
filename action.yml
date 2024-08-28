@@ -25,7 +25,7 @@ runs:
         go-version: ${{ inputs.go-version }}
 
     - name: 🔍 Test with the Go CLI
-      uses: meza/ation-go-test@main
+      uses: meza/action-go-test@main
 
     - run: npx semantic-release --dry-run
       shell: bash
