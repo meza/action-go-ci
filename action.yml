@@ -27,9 +27,8 @@ runs:
     - name: 🔍 Test with the Go CLI
       uses: meza/action-go-test@main
 
-    - run: npx semantic-release --dry-run
-      shell: bash
-      name: 🧮 Get next version number
+    - uses: meza/action-do-semantic-release@main
       id: get-next-version
-      env:
+      with:
         GH_TOKEN: ${{ inputs.GH_TOKEN }}
+        DryRun: 'true'
