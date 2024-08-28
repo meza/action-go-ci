@@ -22,7 +22,7 @@ runs:
     - uses: meza/action-go-setup@main
       name: 🔧 Set up Node.js
       with:
-        node-version: 'latest'
+        go-version: ${{ inputs.go-version }}
     - name: 🔍 Test with the Go CLI
       shell: bash
       run: go test -json ./... | go-ctrf-json-reporter -output ctrf-report.json
