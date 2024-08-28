@@ -32,10 +32,6 @@ runs:
       run: npx github-actions-ctrf ctrf-report.json
       if: always()
 
-    - name: ❌ Publish CTRF Failed Test Summary Results
-      shell: bash
-      run: npx github-actions-ctrf failed ctrf-report.json
-      if: always()
     - run: npx semantic-release --dry-run
       shell: bash
       name: 🧮 Get next version number
