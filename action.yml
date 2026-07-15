@@ -1,4 +1,5 @@
 name: 'Common golang ci'
+description: "Sets up Go, runs tests, and determines the next semantic release version"
 inputs:
   GH_TOKEN:
     description: "The GitHub token"
@@ -6,7 +7,6 @@ inputs:
   go-version:
     description: "The version of node to use"
     required: false
-    type: string
     default: "latest"
 outputs:
   new-release-published:
